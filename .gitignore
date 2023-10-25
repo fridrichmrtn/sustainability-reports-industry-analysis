@@ -1,0 +1,5 @@
+.env
+.vscode
+.~*
+data/unglobalcompact.csv
+data/raw_files/*

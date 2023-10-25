@@ -1,0 +1,5 @@
+numpy
+pandas
+jupyter
+python-magic
+unoserver
