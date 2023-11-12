@@ -2,7 +2,4 @@ numpy
 pandas
 jupyter
 python-magic
-unoserver
-pytesseract
-pdf2image
 joblib
