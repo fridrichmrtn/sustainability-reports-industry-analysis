@@ -39,7 +39,7 @@ class DataIngestion():
             dir = ""
         return dir + "_".join([index, company]) + ext
     
-    def load_docs(self):
+    def load_data(self):
         self.docs_data = pd.read_csv(self.docs_file)   
         new_columns = {c: self._sanitize_name(c) for c in self.docs_data.columns}
         self.docs_data = self.docs_data.rename(columns=new_columns)
@@ -172,5 +172,5 @@ class DataIngestion():
         return self        
 
 # %%
-# Ingestion = DataIngestion().load_docs().download_reports()\
+# Ingestion = DataIngestion().load_data().download_reports()\
 #     .convert_reports().read_reports().save_data()
