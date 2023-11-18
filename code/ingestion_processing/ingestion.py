@@ -5,7 +5,6 @@ import os
 import requests
 import magic
 from joblib import Parallel, delayed
-import pickle
 
 class DataIngestion():
     
@@ -166,9 +165,8 @@ class DataIngestion():
 
     def save_data(self, file_path=None):
         if file_path is None:
-            file_path = self.data_path+"ingested.pkl"
-        with open(file_path, "wb") as file:
-            pickle.dump(self.docs_data, file)
+            file_path = self.data_path+"ingested.parquet"
+        self.docs_data.to_parquet(file_path)
         return self        
 
 # %%
