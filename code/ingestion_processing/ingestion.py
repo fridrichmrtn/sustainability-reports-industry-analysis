@@ -3,7 +3,6 @@ import pandas as pd
 import re
 import os
 import requests
-from concurrent.futures import ThreadPoolExecutor
 import magic
 from joblib import Parallel, delayed
 import pickle
@@ -70,8 +69,8 @@ class DataIngestion():
     def download_reports(self):
         url_list = self.docs_data["communication_on_progress_file"].values
         path_list = self.docs_data["file_destination"].values
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            executor.map(self._download_file, url_list, path_list)
+        Parallel(n_jobs=5)(delayed(self._download_file)\
+            (url, path) for url, path in zip(url_list, path_list))
         return self
     
     def _check_path(self,path):
