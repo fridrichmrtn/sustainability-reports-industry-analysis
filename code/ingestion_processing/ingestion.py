@@ -16,6 +16,7 @@ class DataIngestion():
                 data_folder = "../../data/") -> None:
         self.docs_file = docs_file
         self.raw_folder = raw_folder
+        self.data_folder = data_folder
         pass
 
     def _sanitize_name(self, name):
