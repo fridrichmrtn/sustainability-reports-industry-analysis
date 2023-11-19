@@ -1,5 +1,10 @@
+setuptools
+wheel
 numpy
 pandas
 jupyter
 python-magic
 joblib
+pyarrow
+fastparquet
+pycld2
