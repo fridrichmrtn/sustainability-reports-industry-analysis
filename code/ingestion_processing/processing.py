@@ -1,5 +1,4 @@
 # %%
-# %%
 ### prepare
 import os
 import pandas as pd
@@ -114,7 +113,8 @@ class DataProcessing():
         self.data = self.data.loc[(self.data.loc[:,col].notnull())\
             & (~self.data.loc[:,col].isin([""])),]
         # deconstruct in parallel and save
-        self._deconstruct_save_upos_batch(self.data, dir_name, col, n_jobs)
+        #NOTE: THIS HAS TO BE UNCOMMENTED IF THE UPOS FILES ARE NOT YET CREATED
+        #self._deconstruct_save_upos_batch(self.data, dir_name, col, n_jobs)
         # load back
         upos = pd.concat(self._get_parquet_files(dir_name)) 
         # filter
@@ -135,10 +135,10 @@ class DataProcessing():
         row["language_score"] = lang_estimation[0][2]/100.0
         return row    
     
-    def get_metadata(self, col="reconstructed_text", n_jobs=4):
+    def get_metadata(self, col="reconstructed_text", n_jobs=1):
         self.data = self.data.loc[(self.data.loc[:,col].notnull())\
             & (~self.data.loc[:,col].isin([""])),]
-        rows_ls = Parallel(n_jobs = n_jobs)(delayed(self._metadata_row)\
+        rows_ls = Parallel(n_jobs=n_jobs)(delayed(self._metadata_row)\
             (ind, col) for ind in self.data.index)
         self.data = pd.DataFrame(rows_ls)
         return self
