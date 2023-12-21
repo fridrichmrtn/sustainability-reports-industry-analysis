@@ -11,8 +11,8 @@ import gc
 class DataProcessing():
     
     def __init__(self,
-                data_file = "../../data/ingested.parquet",
-                data_folder = "../../data/") -> None:
+                data_file = "../data/ingested.parquet",
+                data_folder = "../data/") -> None:
         self.data_file = data_file
         self.data_folder = data_folder
         pass
@@ -109,7 +109,7 @@ class DataProcessing():
             lambda x: re.sub(r'\b(\w+\s*)\1{1,}', '\\1', x))  
         return reconstructed
 
-    def construct_upos(self, n_jobs=8, dir_name="../../data/upos_files/", col="text"):
+    def construct_upos(self, n_jobs=8, dir_name="../data/upos_files/", col="text"):
         self.data = self.data.loc[(self.data.loc[:,col].notnull())\
             & (~self.data.loc[:,col].isin([""])),]
         # deconstruct in parallel and save
@@ -150,5 +150,6 @@ class DataProcessing():
         return self    
 
 # %%
-Processing = DataProcessing().load_data().preprocess_reports()\
-    .construct_upos().get_metadata().save_data()
+# if __name__ == "__main__":
+#     Processing = DataProcessing().load_data().preprocess_reports()\
+#         .construct_upos().get_metadata().save_data()

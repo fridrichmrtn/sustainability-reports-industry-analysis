@@ -10,9 +10,9 @@ from joblib import Parallel, delayed
 class DataIngestion():
     
     def __init__(self,
-                docs_file = "../../data/unglobalcompact.csv",
-                raw_folder = "../../data/raw_files/",
-                data_folder = "../../data/") -> None:
+                docs_file = "../data/unglobalcompact.csv",
+                raw_folder = "../data/raw_files/",
+                data_folder = "../data/") -> None:
         self.docs_file = docs_file
         self.raw_folder = raw_folder
         self.data_folder = data_folder
@@ -129,7 +129,7 @@ class DataIngestion():
         return self
 
     def _get_txt_path(self, file_path,
-            dir_name="../../data/txt_files/"):
+            dir_name="../data/txt_files/"):
         base_name = os.path.basename(file_path)
         name, extension = os.path.splitext(base_name)
         return os.path.join(*[dir_name, name+".txt"])
@@ -171,5 +171,6 @@ class DataIngestion():
         return self        
 
 # %%
-# Ingestion = DataIngestion().load_data().download_reports()\
-#     .convert_reports().read_reports().save_data()
+#if __name__ == "__main__":
+#    Ingestion = DataIngestion().load_data().download_reports()\
+#        .convert_reports().read_reports().save_data()
