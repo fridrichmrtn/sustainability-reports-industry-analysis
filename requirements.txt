@@ -9,3 +9,6 @@ pyarrow
 fastparquet
 pycld2
 spacy
+matplotlib
+scikit-learn
+networkx

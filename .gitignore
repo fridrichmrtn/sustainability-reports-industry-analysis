@@ -4,3 +4,4 @@
 data/unglobalcompact.csv
 data/*
 *.log
+*__pycache__*
