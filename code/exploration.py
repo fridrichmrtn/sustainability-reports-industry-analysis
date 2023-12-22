@@ -16,7 +16,8 @@ class DataExploration():
 
     def load_data(self):
         self.data = pd.read_parquet(self.data_path)
-        self.data = self.data.loc[(self.data.n_chars>200) & (self.data.language=="en"),:]
+        self.data = self.data.loc[(self.data.n_chars>200) & (self.data.language=="en")\
+            & (self.data.language_score>=0.99),:]
         return self
     
     def construct_ngram_stats(self, column_name="reconstructed_text", range=(1,1)):
