@@ -95,7 +95,7 @@ class DataProcessing():
         upos = upos.loc[(upos.lemma.str.len()>2) & (upos.lemma.str.len()<19),:]
         # multivariate filter
         lemma_stats = upos.groupby("lemma", as_index=False).agg({"doc_id":["count", "nunique"]})
-        pf = (lemma_stats[("doc_id","count")]>500)&(lemma_stats[("doc_id","nunique")]>250) #500,250
+        pf = (lemma_stats[("doc_id","count")]>100)&(lemma_stats[("doc_id","nunique")]>50) #500,250
         stopword_set = set([])
         lemma_set = set(lemma_stats.loc[pf,"lemma"].values).difference(stopword_set)
         return upos.loc[upos.lemma.isin(lemma_set),:]
@@ -150,6 +150,5 @@ class DataProcessing():
         return self    
 
 # %%
-# if __name__ == "__main__":
-#     Processing = DataProcessing().load_data().preprocess_reports()\
-#         .construct_upos().get_metadata().save_data()
+# Processing = DataProcessing().load_data().preprocess_reports()\
+#     .construct_upos().get_metadata().save_data()
