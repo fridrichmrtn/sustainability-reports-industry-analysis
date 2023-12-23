@@ -114,30 +114,31 @@ class DataExploration():
         ax.set(frame_on=False)
         return ax
     
-    def _construct_tfidf(self, column_name="reconstructed_text"):
-        tiv = TfidfVectorizer(max_features=10000)
-        self.tfidf_data =  tiv.fit_transform(self.data[column_name])
-        self.tfifd_model = tiv
+    def _construct_tf(self, column_name="reconstructed_text"):
+        tfv = CountVectorizer(max_features=10000)
+        self.tf_data =  tfv.fit_transform(self.data[column_name])
+        self.tf_model = tfv
         return self
     
     def _construct_lda(self, n_topics=15):
         lda = LatentDirichletAllocation(n_components=n_topics, max_iter=10,
         learning_method="online", learning_offset=50., random_state=0)
-        lda.fit(self.tfidf_data)
+        lda.fit(self.tf_data)
         self.lda_model = lda
         return self
     
     def construct_lda(self, column_name="reconstructed_text", n_topics=15):
-        self._construct_tfidf(column_name)
+        self._construct_tf(column_name)
         self._construct_lda(n_topics)
         return self
     
+    # NOTE: generalize the plotting function
     def plot_lda_top_words(self, top_n=15, figsize=(20,20)):
-        f, axs = plt.subplots(3, 5, figsize=(20, 15))
+        f, axs = plt.subplots(3, 5, figsize=figsize)
         axs = axs.flatten()
         for topic_idx, topic in enumerate(self.lda_model.components_):
             top_features_ind = topic.argsort()[:-top_n - 1:-1]
-            top_features = [self.tfifd_model.get_feature_names_out()\
+            top_features = [self.tf_model.get_feature_names_out()\
                 [i] for i in top_features_ind]
             weights = topic[top_features_ind]
             ax = axs[topic_idx]
