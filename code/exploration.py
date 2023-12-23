@@ -133,7 +133,7 @@ class DataExploration():
         return self
     
     # NOTE: generalize the plotting function
-    def plot_lda_top_words(self, top_n=15, figsize=(20,20)):
+    def plot_lda_top_words(self, top_n=15, figsize=(15,15)):
         f, axs = plt.subplots(3, 5, figsize=figsize)
         axs = axs.flatten()
         for topic_idx, topic in enumerate(self.lda_model.components_):
