@@ -8,6 +8,7 @@ The repository contains our work on extraction pipeline &amp; analysis of corpor
 ├──docs
     ├── preliminary_exploration.ipynb # preliminary analysis of the processed data
     ├── industry_exploration.ipynb # similarities across the industries
+    ├── stm_exploration.html # differences across corp structures
 ```
 
 ## Links
