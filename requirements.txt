@@ -12,3 +12,5 @@ spacy
 matplotlib
 scikit-learn
 networkx
+PyPDF2
+PyCryptodome

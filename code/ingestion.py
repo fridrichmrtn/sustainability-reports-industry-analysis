@@ -5,6 +5,7 @@ import re
 import os
 import requests
 import magic
+from PyPDF2 import PdfReader
 from joblib import Parallel, delayed
 
 class DataIngestion():
@@ -148,9 +149,18 @@ class DataIngestion():
             try:
                 #txt = self._pdf2txt(pdf_path)
                 #self._txt2file(txt, txt_path)
-                cmd = f"gs -sDEVICE=ocr -r200 -dQUIET -dBATCH -dNOPAUSE -sOutputFile={txt_path} {pdf_path} > conversion.log 2>&1"
-                status = os.system(cmd)
+                
+                # PyPDF2 extraction
+                reader = PdfReader(pdf_path)
+                text = "/n".join([page.extract_text() for page in reader.pages])
+                with open(txt_path, "w") as file:
+                    file.write(text)
                 row["txt_file_destination"] = self._check_path(txt_path)
+
+                # Ghostscript extraction, may be used as an alternative
+                #cmd = f"gs -sDEVICE=ocr -r200 -dQUIET -dBATCH -dNOPAUSE -sOutputFile={txt_path} {pdf_path} > conversion.log 2>&1"
+                #status = os.system(cmd)
+                
             except Exception as e:
                 print(f"Error reading '{pdf_path}': {e}.")
         return row
