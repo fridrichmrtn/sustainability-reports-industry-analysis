@@ -5,3 +5,4 @@ data/unglobalcompact.csv
 data/*
 *.log
 *__pycache__*
+.Rhistory
