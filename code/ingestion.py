@@ -176,7 +176,7 @@ class DataIngestion():
 
     def save_data(self, file_path=None):
         if file_path is None:
-            file_path = self.data_path+"ingested.parquet"
+            file_path = self.data_folder+"ingested.parquet"
         self.docs_data.to_parquet(file_path)
         return self        
 

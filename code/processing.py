@@ -114,7 +114,7 @@ class DataProcessing():
             & (~self.data.loc[:,col].isin([""])),]
         # deconstruct in parallel and save
         #NOTE: THIS HAS TO BE UNCOMMENTED IF THE UPOS FILES ARE NOT YET CREATED
-        #self._deconstruct_save_upos_batch(self.data, dir_name, col, n_jobs)
+        self._deconstruct_save_upos_batch(self.data, dir_name, col, n_jobs)
         # load back
         upos = pd.concat(self._get_parquet_files(dir_name)) 
         # filter
