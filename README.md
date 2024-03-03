@@ -6,12 +6,15 @@ The repository contains our work on extraction pipeline &amp; analysis of corpor
 ```
 ├──code  
 ├──docs
-    ├── preliminary_exploration.ipynb # preliminary analysis of the processed data
-    ├── industry_exploration.ipynb # similarities across the industries
-    ├── stm_exploration.md # differences across corp structures
+    ├── exploratory_analysis
+        ├── preliminary_exploration.ipynb # preliminary analysis of the processed data
+        ├── industry_exploration.ipynb # similarities across the industries
+        ├── stm_exploration.md # differences across corp structures
+    ├── topic_modeling
+        ├── ctm_support_doc.md # example of supportive data
 ```
 
 ## Links
-* [docs/preliminary_exploration.ipynb](docs/preliminary_exploration.ipynb)
-* [docs/industry_exploration.ipynb](docs/industry_exploration.ipynb)
-* [docs/stm_exploration.md](docs/stm_exploration.md)
+* [docs/exploratory_analysis/preliminary_exploration.ipynb](docs/exploratory_analysis/preliminary_exploration.ipynb)
+* [docs/exploratory_analysis/industry_exploration.ipynb](docs/exploratory_analysis/industry_exploration.ipynb)
+* [docs/exploratory_analysis/stm_exploration.md](docs/exploratory_analysis/stm_exploration.md)
