@@ -1,0 +1,52 @@
+---
+title: "STM/CTM topic modeling - exploratory examples"
+output: github_document
+date: "2024-03-03"
+---
+
+## Housekeeping
+
+```{r}
+source("//mnt/Data/git_root/sustainability-reports-industry-analysis/code/modeling.R")
+```
+
+## Initialize class
+
+```{r}
+exploration = stm_exploration$new(
+  input_data_path = "/mnt/Data/git_root/sustainability-reports-industry-analysis/data/processed.parquet",
+  sweep_data_dir = "/mnt/Data/git_root/sustainability-reports-industry-analysis/data/model_files",
+  export_data_dir = "/mnt/Data/git_root/sustainability-reports-industry-analysis/data/export_files",
+  sweep_range = 5:100,
+  seed = 42)
+```
+
+## Load and preprocess data
+
+```{r cache=T}
+exploration$load_data()
+exploration$filter_data()
+exploration$preprocess_data()
+```
+
+After filtering and preprocessing, `r nrow(exploration$preprocessed_data)` documents are considered for downstream analysis.
+
+## Parameter sweep
+
+```{r cache=T}
+#exploration$parameter_sweep()
+exploration$reconstruct_sweep_data()
+exploration$plot_sweep()
+```
+
+## Export artifacts
+
+```{r}
+#exploration$export_artifacts()
+```
+
+## Analytical example
+
+```{r}
+```
+

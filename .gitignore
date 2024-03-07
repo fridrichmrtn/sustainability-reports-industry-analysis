@@ -4,5 +4,6 @@
 data/*
 *.log
 *__pycache__*
+*cache*
 .Rhistory
 playground*

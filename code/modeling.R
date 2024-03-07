@@ -98,16 +98,6 @@ stm_exploration <- R6Class("stm_exploration_class",
         return(eval)
       }
       
-      format_sweep_data = function(sweep_data) {
-        colnames(sweep_data) = NULL
-        sweep_data = as.data.frame(t(sweep_data))
-        sweep_data$K = as.numeric(sweep_data$K)
-        sweep_data$sc = as.numeric(sweep_data$sc)
-        sweep_data$frex = as.numeric(sweep_data$frex)
-        sweep_data$time = as.numeric(sweep_data$time)
-        return(sweep_data)
-      }
-      
       print("Starting hyperparam sweep for number of topics...")
       st =  Sys.time()
       cl = makeCluster(4)
@@ -115,8 +105,37 @@ stm_exploration <- R6Class("stm_exploration_class",
       stopCluster(cl)
       print(paste0("The procedure finished in ", format(Sys.time()-st, digits=2) ,"."))
       
-      self$sweep_data = format_sweep_data(sweep_data)
+      self$sweep_data = self$format_sweep_data(sweep_data)
       self$sweep_range = topic_range
+    },
+    
+    format_sweep_data = function(sweep_data) {
+      colnames(sweep_data) = NULL
+      sweep_data = as.data.frame(t(sweep_data))
+      sweep_data$K = as.numeric(sweep_data$K)
+      sweep_data$sc = as.numeric(sweep_data$sc)
+      sweep_data$frex = as.numeric(sweep_data$frex)
+      sweep_data$time = as.numeric(sweep_data$time)
+      return(sweep_data)
+    },
+
+    reconstruct_sweep_data = function() {
+      # list all models
+      
+      wrap_eval = function(model_path){
+        model = self$load_model(model_path)
+        eval = self$eval_model(model)
+        eval$K = model$settings$dim$K
+        eval$time = NA
+        eval$file_path = model_path
+        return(eval)
+      }
+      
+      model_files = list.files(self$sweep_data_dir, pattern="*.rds", full.names=T)
+      cl = makeCluster(7)
+      sweep_data = parSapply(cl, model_files, wrap_eval)
+      stopCluster(cl)
+      self$sweep_data = self$format_sweep_data(sweep_data)
     },
     
     plot_sweep = function() {
@@ -126,12 +145,12 @@ stm_exploration <- R6Class("stm_exploration_class",
         scale_linear = (x-x_range[1])/(x_range[2]-x_range[1])
         return(scale_linear)}
   
-      sweep_data = test$sweep_data
+      sweep_data = self$sweep_data
       sweep_data[,c("semcoh_scaled", "frex_scaled")] = apply(
           sweep_data[,c("sc","frex")], 2, scale_linear)
       
       sweep_data$dist = ((1-sweep_data$frex_scaled)^2+(1-sweep_data$semcoh_scaled)^2)^(1/2)
-      max_dist = arrange(sweep_data, dist) %>% select(dist) %>% slice(1) %>% unlist()
+      max_dist = arrange(sweep_data, dist) %>% select(dist) %>% slice(10) %>% unlist()
       
       plot(x=sweep_data$semcoh_scaled, y=sweep_data$frex_scaled, type='n',
            main="",xlab='semantic coherence', ylab='frequency and exclusivity',
