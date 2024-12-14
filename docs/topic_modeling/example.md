@@ -74,7 +74,25 @@ exploration$plot_sweep()
 ## Export artifacts
 
 ``` r
-#exploration$export_artifacts()
+exploration$export_artifacts()
 ```
 
 ## Analytical example
+
+**Model summary**  
+```r
+We fit a topic model with 7 topics, 4842 documents and a 10537 word dictionary.
+In addition, the model's semantic coherence is -245.451958 and its exclusivity is 43.885107. 
+```
+
+**Topical prevalence**  
+![](example_files/007_topics/1_topic_prevalence.png)<!-- -->
+
+**Topic tokens**  
+![](example_files/007_topics/2_topic_tokens.png)<!-- -->
+
+**Sector prevalence**  
+![](example_files/007_topics/5_sector_prevalence.png)<!-- -->
+
+**Sector tree**  
+![](example_files/007_topics/6_sector_tree.png)<!-- -->
