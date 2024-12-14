@@ -86,7 +86,7 @@ In addition, the model's semantic coherence is -245.451958 and its exclusivity i
 ```
 
 **Topical prevalence**  
-![](example_files/007_topics/1_topic_prevalence.png=300x)<!-- -->
+![](example_files/007_topics/1_topic_prevalence.png =300x)<!-- -->
 
 **Sector tree**  
 ![](example_files/007_topics/6_sector_tree.png)<!-- -->
